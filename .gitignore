@@ -1,0 +1,10 @@
+# python
+.pyc
+
+# env
+.python-version
+
+# intellij
+.idea
+
+

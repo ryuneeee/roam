@@ -3,10 +3,10 @@ import re
 
 def is_syno_user(user, password):
     result = os.popen('synouser --login %s %s' % (user, password)).read()
-    return 'OK' in result
+    return result == 'LOGIN OK.'
 
 
-def is_group_member(group, user):
+def is_group_member(user, group):
     result = os.popen('synogroup --get %s' % group).read().split('\n')[4:-1]
     list = tuple(result)
     for one in list:

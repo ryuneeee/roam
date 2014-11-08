@@ -8,4 +8,5 @@ __pycache__
 # intellij
 .idea
 
-
+# MAC OS X
+.DS_Store

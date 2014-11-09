@@ -1,7 +1,6 @@
 from flask import *
 
 from auth.synology import is_syno_user
-from test.fake_syno_shell import FakeSyno
 
 bp = Blueprint('user', __name__, template_folder='templates')
 

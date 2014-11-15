@@ -5,8 +5,6 @@ from test.fake_syno_shell import FakeSyno
 
 
 class synoAuth(unittest.TestCase):
-
-
     def setUp(self):
         self.syno = FakeSyno(user='ryun', password='secret')
 

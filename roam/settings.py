@@ -1,5 +1,5 @@
 
-ROAM_NAME = 'Ryunbox'
+ROAM_NAME = 'Roam'
 ROAM_HOST = '0.0.0.0'
 ROAM_PORT = 8000
 

@@ -25,7 +25,7 @@ def login():
         return render_template('login.html',
                                title=settings.ROAM_NAME,
                                hero=settings.ROAM_NAME,
-                               msg='Please input\n Username and Password.'), 404
+                               msg='Please input\nUsername and Password.'), 404
 
     elif is_local_test(user, password) or is_syno_user(user, password):
         session['user'] = user

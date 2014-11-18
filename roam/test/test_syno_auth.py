@@ -6,6 +6,7 @@ from test.fake_syno_shell import FakeSyno
 
 class synoAuth(unittest.TestCase):
     def setUp(self):
+        super().setUp()
         self.syno = FakeSyno(user='ryun', password='secret')
 
     def test_login(self):
@@ -22,5 +23,6 @@ class synoAuth(unittest.TestCase):
         assert False == is_group_member('empty', 'ryun')
 
     def tearDown(self):
+        super().tearDown()
         self.syno.rollback_popen()
 

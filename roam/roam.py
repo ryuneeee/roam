@@ -13,7 +13,7 @@ def index_page():
     if session.get('user') is None:
         return redirect(url_for('login.login_page'))
     else:
-        return render_template('index.html', box_name=settings.ROAM_NAME)
+        return render_template('index.html', title=settings.ROAM_NAME)
 
 @app.route('/logout')
 def clear():

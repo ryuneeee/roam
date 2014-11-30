@@ -1,5 +1,5 @@
 import unittest
-from detector.detector import CharFilter
+from detector.char_filter import CharFilter
 
 class TestCharFilter(unittest.TestCase):
 
@@ -8,17 +8,17 @@ class TestCharFilter(unittest.TestCase):
 
     def test_next(self):
         cf = CharFilter('RO-AM', 'R-OAM2', 'ROA-M3').remove_dash().lower()
-        self.assertEquals('roam', cf.get(0))
-        self.assertEquals('roam2', cf.next())
-        self.assertEquals('roam3', cf.next())
+        self.assertEqual('roam', cf.get(0))
+        self.assertEqual('roam2', cf.next())
+        self.assertEqual('roam3', cf.next())
         self.assertRaises(IndexError, cf.next)
 
     def test_get(self):
         cf = CharFilter('ROA-M', 'RO-AM2', 'R-OA-M3', 'RO-A-M4').remove_dash().lower()
-        self.assertEquals('roam', cf.get(0))
-        self.assertEquals('roam2', cf.get(1))
-        self.assertEquals('roam3', cf.get(2))
-        self.assertEquals('roam4', cf.next())
+        self.assertEqual('roam', cf.get(0))
+        self.assertEqual('roam2', cf.get(1))
+        self.assertEqual('roam3', cf.get(2))
+        self.assertEqual('roam4', cf.next())
         self.assertRaises(IndexError, cf.get, 4)
 
     def test_lower(self):

@@ -1,9 +1,8 @@
 import re
-from settings import REGEX_SEASONS, REGEX_EPISODES, REGEX_DATE
+from settings import REGEX
 
 
 def tuple_by_ends(ends):
-
     if len(ends) < 1:
         return tuple(ends)
     else:
@@ -16,7 +15,7 @@ def tuple_by_ends(ends):
 def extract_groups(regex, sub):
     res = []
 
-    s = re.search(regex, sub)
+    s = re.search(regex, sub, re.IGNORECASE)
 
     if s:
         ends = []
@@ -27,11 +26,28 @@ def extract_groups(regex, sub):
 
     return tuple(res)
 
+
 def extract_seasons(sub):
-    return extract_groups(REGEX_SEASONS, sub)
+    return extract_groups(REGEX['seasons'], sub)
+
 
 def extract_episode(sub):
-    return extract_groups(REGEX_EPISODES, sub)
+    return extract_groups(REGEX['episodes'], sub)
 
 def extract_date(sub):
-    return tuple(re.findall(REGEX_DATE, sub))
+    return extract_etc(sub, REGEX['date'])
+
+def extract_etc(sub, regex):
+    return tuple(re.findall(regex, sub, re.IGNORECASE))
+
+def extract_resolution(sub):
+    return extract_etc(sub, REGEX['resolution'])
+
+def extract_video_codec(sub):
+    return extract_etc(sub, REGEX['video_codec'])
+
+def extract_audio_codec(sub):
+    return extract_etc(sub, REGEX['audio_codec'])
+
+def extract_source(sub):
+    return extract_etc(sub, REGEX['source'])

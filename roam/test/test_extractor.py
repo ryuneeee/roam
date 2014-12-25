@@ -40,6 +40,7 @@ class TestExtractor(unittest.TestCase):
         self.assertEqual((3, 4, 5,), extract_seasons('시즌03-시즌05'))
         self.assertEqual((3, 4,), extract_seasons('시즌3 - 시즌4'))
         self.assertEqual((4, 5, 6, 7, 8), extract_seasons('시즌8 - 시즌4'))
+        self.assertEqual((6,), extract_seasons('The Vampire Diaries S06E09 720p HDTV x264-DIMENSION'))
 
     def test_episide(self):
         self.assertEqual((1,), extract_episode('E01'))
@@ -49,7 +50,27 @@ class TestExtractor(unittest.TestCase):
         self.assertEqual((1,), extract_episode('Episode1'))
         self.assertEqual((4,), extract_episode('4화'))
         self.assertEqual((4,), extract_episode('4회'))
+        self.assertEqual((9,), extract_episode('The Vampire Diaries S06E09 720p HDTV x264-DIMENSION'))
 
     def test_date(self):
         self.assertEqual(('140530', ), extract_date('140530'))
         self.assertEqual(('140530', '140531'), extract_date('140530~140531'))
+
+    def test_resolution(self):
+        self.assertEqual(('SD', ), extract_resolution('The Vampire Diaries S06E09 SD HDTV x264-DIMENSION'))
+        self.assertEqual(('720p', ), extract_resolution('The Vampire Diaries S06E09 720p HDTV x264-DIMENSION'))
+        self.assertEqual(('1080p', ), extract_resolution('The Vampire Diaries S06E09 1080p HDTV x264-DIMENSION'))
+        self.assertEqual(('1080i', ), extract_resolution('The Vampire Diaries S06E09 1080i HDTV x264-DIMENSION'))
+        self.assertEqual(('4K', ), extract_resolution('The Vampire Diaries S06E09 4K HDTV x264-DIMENSION'))
+        self.assertEqual((), extract_resolution('The Vampire Diaries S06E09 HDTV x264-DIMENSION'))
+
+    def test_video_codec(self):
+        self.assertEqual(('x264', ), extract_video_codec('The Vampire Diaries S06E09 720p HDTV x264-DIMENSION'))
+        self.assertEqual(('h264', ), extract_video_codec('The Vampire Diaries S06E09 720p HDTV h264-DIMENSION'))
+
+    def test_audio_codec(self):
+        self.assertEqual(('AAC', ), extract_audio_codec('The Vampire Diaries S06E09 720p AAC HDTV x264-DIMENSION'))
+
+    def test_source(self):
+        self.assertEqual(('HDTV', ), extract_source('The Vampire Diaries S06E09 720p HDTV x264-DIMENSION'))
+        self.assertEqual(('Blu-ray', ), extract_source('The Vampire Diaries S06E09 720p Blu-ray x264-DIMENSION'))

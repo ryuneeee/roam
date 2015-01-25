@@ -5,16 +5,10 @@ class FakeSyno:
     groups = {}
     users = {}
 
-    def __init__(self):
-        self.override_popen()
-
     def __init__(self, user, password, group=None):
         self.users[user] = password
         self.groups[user] = group
         self.result = None
-
-        # Overriding for fake test
-        self.override_popen()
 
     def add_user(self, user, password, group=None):
         self.users[user] = password
@@ -44,7 +38,7 @@ class FakeSyno:
         return self
 
     def synouser(self, func, user, password):
-        #synogroup --get user password
+        # cmd: synogroup --get user password
         if func == '--login':
             if self.users.get(user) is None:
                 self.result = _SYNO_USER_NOT_FOUND
@@ -58,7 +52,7 @@ class FakeSyno:
             raise Exception(_NOT_SUPPORTED)
 
     def synogroup(self, func, group):
-        #synogroup --get groupname
+        # cmd: synogroup --get groupname
         if func == '--get':
             users = [k for k, v in self.groups.items() if v == group]
 

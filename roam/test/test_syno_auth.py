@@ -9,6 +9,9 @@ class synoAuth(unittest.TestCase):
         super().setUp()
         self.syno = FakeSyno(user='ryun', password='secret')
 
+        # MUST: Overriding for fakeSyno test
+        self.syno.override_popen()
+
     def test_login(self):
         self.assertTrue(is_syno_user('ryun', 'secret'))
         self.assertFalse(is_syno_user('ryun', 'hello'))

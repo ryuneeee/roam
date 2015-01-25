@@ -1,10 +1,30 @@
+import logging
+
 from flask import Flask, render_template, session, url_for, redirect
-from controllers import login
+from sqlalchemy import create_engine
+
+from web.controllers import login
+from models import Base
 import settings
 
+
+
+
+# SQLAlchemy & Model binding
+engine = create_engine('sqlite:///')
+Base.metadata.create_all(engine)
+
+
+# TODO: make logger class using yaml conf.
+# ref: https://docs.python.org/3.4/library/logging.config.html#dictionary-schema-details
+# Logging module
+logging.basicConfig(format=settings.LOGGING_FORMAT, level=settings.LOGGING_LEVEL)
+
+# Flask
 app = Flask(__name__)
 app.secret_key = settings.SECRET_KEY
 
+# Flask Blueprint
 app.register_blueprint(login.bp)
 
 

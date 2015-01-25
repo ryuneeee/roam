@@ -1,8 +1,10 @@
+import logging
+
 ROAM_NAME = 'Roam'
 ROAM_HOST = '0.0.0.0'
 ROAM_PORT = 8000
 
-# Used Flasks' session
+# Used Flask's session
 SECRET_KEY = 'temp_secret_key'
 
 # Synology shared folder for download.
@@ -19,3 +21,6 @@ REGEX = {
     'audio_codec': '(AAC|MP3|DTS|DTSHD|FLAC)',
     'source': '(BluRay|Blu-ray|BRRip|DVDRip|HDTV|WEBDL|WEB-DL|Screener)',
 }
+
+LOGGING_FORMAT = '[%(asctime)s] %(levelname)s [%(filename)s:%(lineno)s] - %(message)s'
+LOGGING_LEVEL = logging.DEBUG

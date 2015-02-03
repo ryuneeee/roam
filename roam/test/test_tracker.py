@@ -1,6 +1,10 @@
 import os
-import unittest
+import sys
+# append PYTHONPATH to roam's home dir
+sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..'))
+
 from trackers import manager
+import unittest
 
 __author__ = 'Ryun'
 
@@ -17,27 +21,31 @@ class testTracker(unittest.TestCase):
         open('dummy_tracker.py', 'a').close()
         open('dummy_tracker_two.py', 'a').close()
 
+        # Create TrackerManager
+        self.tmgr = manager.TrackerManager()
 
-    def test_file_lists(self):
-        tmgr = manager.TrackerManager()
-        list = tmgr.file_lists()
+
+    def t1est_file_lists(self):
+        list = self.tmgr.file_lists()
         self.assertIn('dummy_tracker.py', list)
         self.assertIn('dummy_tracker_two.py', list)
 
 
-    def test_load_module(self):
-        names = []
+    def t1est_load_module(self):
+        trackers = self.tmgr.load_trackers()
+        self.assertIn('trackers.dummy_tracker', trackers.keys())
+        self.assertIn('trackers.dummy_tracker_two', trackers.keys())
 
-        tmgr = manager.TrackerManager()
-        trackers = tmgr.load_modules()
+    def test_refresh_modules(self):
+        trackers = self.tmgr.load_trackers()
+        self.assertEqual(2, len(trackers))
 
-        for tracker in trackers:
-            names.append(tracker.__name__)
+        open('dummy_tracker_three.py', 'a').close()
+        trackers = self.tmgr.refresh_trackers()
 
-        self.assertIn('trackers.dummy_tracker', names)
-        self.assertIn('trackers.dummy_tracker_two', names)
-
-
+        self.assertEqual(3, len(trackers))
+        print(trackers)
+        os.remove('dummy_tracker_three.py')
 
     def tearDown(self):
         # Remove dummy file

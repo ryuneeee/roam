@@ -1,6 +1,6 @@
 import unittest
-from synology.auth import is_syno_user, is_group_member
 
+from synology.auth import is_syno_user, is_group_member
 from test.fake_syno_shell import FakeSyno
 
 

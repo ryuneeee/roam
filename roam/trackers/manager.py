@@ -8,22 +8,34 @@ import os
 
 class TrackerManager():
 
+    def __init__(self):
+        self.trackers = {}
+
     def file_lists(self):
         curdir = os.path.dirname(os.path.abspath(__file__))
         os.chdir(curdir)
 
-        trackers = glob('[!_]*.py')
-        trackers.remove(os.path.basename(__file__))
-        return trackers
+        try:
+            files = glob('[!_]*.py')
+            files.remove(os.path.basename(__file__))
+        except:
+            # TODO: IOError Logging
+            raise IOError()
 
-    # TODO: Save trackers into dict or array after import python modules and make Tracker obj.
-    # Import modules: https://github.com/storyhe/playWithBot/blob/master/slask.py#L31
-    def load_modules(self):
-        trackers = self.file_lists()
+        return files
 
-        loaded = []
+    def load_trackers(self):
+        files = self.file_lists()
 
-        for tracker in trackers:
-            loaded.append(importlib.import_module('trackers.'+tracker[:-3]))
+        for tracker in files:
+            mod = importlib.import_module('trackers.%s' % tracker[:-3])
+            self.trackers[mod.__name__] = mod
 
-        return loaded
+        return self.trackers
+
+    def refresh_trackers(self):
+        # Remove loaded module cache
+        importlib.invalidate_caches()
+
+        self.load_trackers()
+        return self.trackers

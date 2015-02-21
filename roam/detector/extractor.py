@@ -1,5 +1,5 @@
 import re
-from settings import REGEX
+from ..settings import REGEX
 
 
 def tuple_by_ends(ends):

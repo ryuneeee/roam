@@ -1,7 +1,7 @@
 from flask import *
 
-from synology.auth.synology import is_syno_user
 import settings
+from synology.auth import is_syno_user
 
 bp = Blueprint('login', __name__, template_folder='templates')
 

@@ -28,7 +28,7 @@ class TrackerManager():
         files = self.file_lists()
 
         for tracker in files:
-            mod = importlib.import_module('trackers.%s' % tracker[:-3])
+            mod = importlib.import_module('roam.trackers.%s' % tracker[:-3])
             self.trackers[mod.__name__] = mod
 
         return self.trackers

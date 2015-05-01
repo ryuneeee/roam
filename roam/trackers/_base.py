@@ -32,3 +32,11 @@ class Tracker():
         :return: torrent tuple
         """
         raise NotImplementedError('Not implemented yet.')
+
+    @abstractmethod
+    def download(self):
+        """
+        Downlaod torrent from tracker
+        :return: torrent binary
+        """
+        raise NotImplementedError('Not implemented yet.')

@@ -33,13 +33,12 @@ class testTracker(unittest.TestCase):
 
     def test_refresh_modules(self):
         trackers = self.tmgr.load_trackers()
-        self.assertEqual(2, len(trackers))
+        now_trackers_count = len(trackers)
 
         open('dummy_tracker_three.py', 'a').close()
         trackers = self.tmgr.refresh_trackers()
 
-        self.assertEqual(3, len(trackers))
-        print(trackers)
+        self.assertEqual(now_trackers_count+1, len(trackers))
         os.remove('dummy_tracker_three.py')
 
     def tearDown(self):

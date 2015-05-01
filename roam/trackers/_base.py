@@ -1,5 +1,8 @@
-from abc import abstractmethod
 import os
+
+from abc import abstractmethod
+from http import cookiejar
+from urllib import request, parse
 
 __author__ = 'Ryun'
 
@@ -13,7 +16,7 @@ class Tracker():
     def login(self):
         """
         Login to tracker.
-        :return: cookie store
+        :return: dumps cookie Jar
         """
         raise NotImplementedError('Not implemented yet.')
 
@@ -40,3 +43,17 @@ class Tracker():
         :return: torrent binary
         """
         raise NotImplementedError('Not implemented yet.')
+
+    def post(self, url, data):
+        encoded_data = self.prepare_urlencode(data)
+        cj = cookiejar.CookieJar()
+        opener = request.build_opener(request.HTTPCookieProcessor(cj))
+        resp = opener.open(url, encoded_data)
+        return cj
+
+    def prepare_urlencode(self, data):
+        if type(data) is dict:
+            data = parse.urlencode(data)
+            return data.encode('utf-8')
+        else:
+            return data

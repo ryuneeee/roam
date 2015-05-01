@@ -10,3 +10,7 @@ __pycache__
 
 # MAC OS X
 .DS_Store
+
+
+# priv_torrent
+priv_*

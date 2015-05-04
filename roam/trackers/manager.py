@@ -44,4 +44,5 @@ class TrackerManager():
         return self.trackers
 
     def login_trackers(self):
-        return self.trackers
+        for tracker in self.trackers.values():
+            tracker.login()

@@ -51,3 +51,6 @@ def extract_audio_codec(sub):
 
 def extract_source(sub):
     return extract_etc(sub, REGEX['source'])
+
+def extract_year(sub):
+    return extract_etc(sub, REGEX['year'])

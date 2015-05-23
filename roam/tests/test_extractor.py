@@ -53,8 +53,11 @@ class TestExtractor(unittest.TestCase):
         self.assertEqual((9,), extract_episode('The Vampire Diaries S06E09 720p HDTV x264-DIMENSION'))
 
     def test_date(self):
-        self.assertEqual(('140530', ), extract_date('140530'))
+        self.assertEqual(('140530', ), extract_date('불후의 명곡 E001~E196 2011 / 140530 / TV / KBS2 / 720p / H.264 / MKV'))
         self.assertEqual(('140530', '140531'), extract_date('140530~140531'))
+
+    def test_year(self):
+        self.assertEqual(('2011', ), extract_year('불후의 명곡 E001~E196 2011 / TV / KBS2 / 720p / H.264 / MKV'))
 
     def test_resolution(self):
         self.assertEqual(('SD', ), extract_resolution('The Vampire Diaries S06E09 SD HDTV x264-DIMENSION'))

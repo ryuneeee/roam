@@ -16,6 +16,7 @@ class TrackerManager():
 
         try:
             files = glob('[!_]*.py')
+            files.remove('base.py')
             files.remove(os.path.basename(__file__))
         except:
             # TODO: IOError Logging
@@ -23,15 +24,20 @@ class TrackerManager():
 
         return files
 
+    @staticmethod
+    def instance_or_mod(mod):
+        if len(dir(mod)) > 8:  # if not test or fake module, make tracker instance.
+            cls = getattr(mod, dir(mod)[0])
+            mod = cls()
+        return mod
+
     def load_trackers(self):
         files = self.file_lists()
 
         for tracker in files:
             mod = importlib.import_module('roam.trackers.%s' % tracker[:-3])
             mod_name = mod.__name__
-            if len(dir(mod)) > 8:  # if not test or fake module, make tracker instance.
-                cls = getattr(mod, dir(mod)[0])
-                mod = cls()
+            mod = self.instance_or_mod(mod)
             self.trackers[mod_name] = mod
 
         return self.trackers

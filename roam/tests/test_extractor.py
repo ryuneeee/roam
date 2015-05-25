@@ -77,3 +77,10 @@ class TestExtractor(unittest.TestCase):
     def test_source(self):
         self.assertEqual(('HDTV', ), extract_source('The Vampire Diaries S06E09 720p HDTV x264-DIMENSION'))
         self.assertEqual(('Blu-ray', ), extract_source('The Vampire Diaries S06E09 720p Blu-ray x264-DIMENSION'))
+
+    def test_pack(self):
+        self.assertTrue(extract_pack('The Vampire Diaries S06 720p HDTV x264-DIMENSION'))
+        self.assertTrue(extract_pack('The Vampire Diaries PACK 720p HDTV x264-DIMENSION'))
+        self.assertTrue(extract_pack('The Vampire Diaries S06 PACK 720p HDTV x264-DIMENSION'))
+        self.assertFalse(extract_pack('The Vampire Diaries S06E03 720p HDTV x264-DIMENSION'))
+        self.assertFalse(extract_pack('The Vampire Diaries 720p HDTV x264-DIMENSION'))

@@ -1,5 +1,5 @@
 import re
-from ..settings import REGEX
+from roam.settings import REGEX
 
 
 def tuple_by_ends(ends):
@@ -54,3 +54,8 @@ def extract_source(sub):
 
 def extract_year(sub):
     return extract_etc(sub, REGEX['year'])
+
+def extract_pack(sub):
+    if len(extract_etc(sub, REGEX['pack'])) > 0: return True
+    if len(extract_seasons(sub)) > 0 and len(extract_episode(sub)) == 0: return True
+    return False
